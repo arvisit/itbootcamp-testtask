@@ -3,7 +3,7 @@ This repository contains ITbootcamp Java Developer Test Task solution.
 
 ## Requirements
 **Mandatory:**
-+ Multe-module Maven project (3-level three-module development architecture)
++ Multi-module Maven project (3-level three-module development architecture)
 + Version control system - Git (Public repository on GitHub)
 + Technologies:
     1. Java 11
