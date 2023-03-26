@@ -9,21 +9,31 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.Hibernate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import constants.ValidationConstants;
 
+@JsonPropertyOrder({ "fullName", "email", "role" })
 public class UserDto {
+    @JsonIgnore
     private Integer id;
 
+    @JsonProperty(access = Access.WRITE_ONLY)
     @NotBlank(message = "{msg.error.field.notblank}")
     @Size(min = 1, max = 40, message = "{msg.error.userdto.lastname.length}")
     @Pattern(regexp = ValidationConstants.LATIN_ONLY, message = "{msg.error.field.onlylatin")
     private String lastName;
 
+    @JsonProperty(access = Access.WRITE_ONLY)
     @NotBlank(message = "{msg.error.field.notblank}")
     @Size(min = 1, max = 20, message = "{msg.error.userdto.firstname.length}")
     @Pattern(regexp = ValidationConstants.LATIN_ONLY, message = "{msg.error.field.onlylatin")
     private String firstName;
 
+    @JsonProperty(access = Access.WRITE_ONLY)
     @NotBlank(message = "{msg.error.field.notblank}")
     @Size(min = 1, max = 40, message = "{msg.error.userdto.secondname.length}")
     @Pattern(regexp = ValidationConstants.LATIN_ONLY, message = "{msg.error.field.onlylatin")
@@ -99,6 +109,11 @@ public class UserDto {
 
     public void setRole(RoleDto role) {
         this.role = role;
+    }
+
+    @JsonProperty(value = "fullName", access = Access.READ_ONLY)
+    public String getFullName() {
+        return (firstName + " " + secondName + " " + lastName);
     }
 
     @Override
